@@ -9,7 +9,15 @@ struct aerop{
 	int movs;
 	Taerop tail;
 };
-/* En el censo se guardadfaafafafafafafafafafafaf
- * 
+/* habria que ver si hay que definir struct dia en el .h
+ * (osea si hay una funcion que tenga que devolver un dia) no creo igual
  */
-struct censoADT
+struct dia{
+	int nacional;
+	int internacional;
+};
+struct censoCDT{
+	dia semana[7];
+	int nacional[3];
+	int internacional[3];
+};
