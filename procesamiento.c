@@ -78,7 +78,7 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(char * file, listADT aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
+int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
 
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
@@ -147,7 +147,7 @@ void queClasificacion(int * clasificacion, char * clasifVuelo){
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(char * file, listADT aerops, tMovsADT movimientos){
+int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
