@@ -8,11 +8,20 @@
 //podriamos tener un: 
 #define DELIMIT ';'
 
-// para aeropuertos.csv
+//clases de vuelos:
+#define CABOT 20
+#define INTER 21
+#define NA 22  //se usa para todo aquella informacion que no tomamos en cuenta. 
+			   //no solo para vuelos N/A.
+
+//clasificacion de vuelos estan en el mov adt.h
+
+
+// para aeropuertos
 #define OACI_AEROP 2
 #define DENOM 5
 
-//para movimientos.csv
+//para movimientos
 #define OACI_ORIGEN 6
 #define OACI_DESTINO 7                 //indican la posicion del respectivo campo en la linea.
 #define FECHA 1
@@ -103,11 +112,42 @@ fAerops = fopen(file, "r");
 }
 
 
+/*
+** Funcion para que una vez obtenida la clase, nos diga cual es.
+*/
+
+void queClase(int * clase, char * claseVuelo){         //PROBARLA!
+	if(strcmp(claseVuelo, "Cabotaje") == 0){
+		*clase = CABOT;
+	}else if(strcmp(claseVuelo, "Internacional") == 0){
+		*clase = INTER;
+	}else{
+		*clase = NA;
+	}
+}
+
+/*
+** Funcion que una vez obtenida la clasificacon, nos diga cual es.
+*/
+
+void queClasificacion(int * clasificacion, char * clasifVuelo){
+	if(strcmp(clasifVuelo, "Regular") == 0){
+		*clasificacion = REG;
+	}else if(strcmp(clasifVuelo, "No Regular") == 0){
+		*clasificacion = NO_REG;
+	}else if(strcmp(clasifVuelo, "Vuelo Privado con Matrícula Nacional") == 0 || strcmp(clasifVuelo, "Vuelo Privado con Matrícula Extranjera") == 0){
+		*clasificacion = PRIV;
+	}else{ //por si alguno no tiene nada o algo que no nos sirve:
+		*clasificacion = NA; //siendo NA un sinonimo de basura.
+	}
+}
+
+
 
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(char * file,vecAerops aerops, tMovsCDT movimientos){
+int procesarMovs(char * file, listADT * aerops, tMovsADT * movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
@@ -122,13 +162,13 @@ fMovs = fopen(file, "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 //----------------Funciones para procesar movimientos-----------//
 //todo lo que es agregar fechas, cabotajes regulares, etc...
 
-	char * linea;
-	char * oaciOrig;
-	char * oaciDest;
-	char * fecha;
-	char * claseVuelo;
-	char * clasifVuelo;
-	int dia, clase;
+	char  linea[300];     //o bien se podrian hacer tipoOaci, tipoFecha etc. y guardarlos en un .h
+	char  oaciOrig[5];
+	char  oaciDest[5];
+	char  fecha[11];
+	char  claseVuelo[15];
+	char  clasifVuelo[11];
+	int dia, clase, clasificacion;
 
 	fgets(linea, 300, fMovs); //descarto la primer linea
 
@@ -141,11 +181,11 @@ fMovs = fopen(file, "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 
 		dia = queDiaEs(fecha);
 
-		queClase(&clase);                 //HACER FUNCION, HACE STRCMP CON "cabotaje" y con "internacional"
-										  //Y LE DA EL VALOR CORRESPONDIENTE A *clase.
+		queClase(&clase, claseVuelo);                 //PROBARLA.
+		queClasificacion(&clasificacion, clasifVuelo);  //probarla!
 
 		aumentaClasifVuelo(clase, clasificacionVuelo(clasifVuelo)); //clasificacionVuelo() retorna un string
-		aumentaDia(movimientos, clase, dia);
+		aumentaDia(movimientos, clase, dia);  //estas dos son fcs de movsADT
 	}
 
 }
