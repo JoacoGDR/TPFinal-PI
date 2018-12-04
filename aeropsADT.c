@@ -47,7 +47,16 @@ static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
-
+int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
+	aeropADT aux = list[oaci[0]-'A'];
+	int c;
+	while(aux!= NULL || (c=strcmp(aux->oaci,oaci))<0){
+		if(c==0)
+			return 1;
+		aux = aux->next;
+	}
+	return 0;
+}
 
 //funcion que ordena por cantidad de movimientos de cada aeropuerto.
 // y alfabeticamente (en caso de ser iguales)
