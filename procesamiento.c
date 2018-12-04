@@ -1,5 +1,3 @@
-//obtenerCampo.c
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,14 +69,14 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(listADT aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
+int procesarAerops(char * file, listADT * aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
 
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
 
 FILE * fAerops;
 
-fAerops = fopen(argv[0], "r");
+fAerops = fopen(file, "r");
 	if(fAerops == NULL){//algo fallo a la hora de abrir el archivo
 		printf("No se pudo abrir el archivo\n");
 		return 1;
@@ -95,8 +93,8 @@ fAerops = fopen(argv[0], "r");
 	fgets(linea, 300, fAerops); //ignoro la primer linea (porque me dice como esta ordenado nomas)
 
 	while(fgets(linea, 300, fAerops)){
-		obtenerOaciAerop(linea, OACI_AEROP, DELIMIT, oaci); //me deja en oaci[], el oaci
-		obtenerDenominacion(linea, DENOM, DELIMIT, denomin); //me deja en denomin, la denominacion del aeropuerto
+		obtenerCampo(linea, OACI_AEROP, DELIMIT, oaci); //me deja en oaci[], el oaci
+		obtenerCampo(linea, DENOM, DELIMIT, denomin); //me deja en denomin, la denominacion del aeropuerto
 
 		addAerop(aerops, oaci, denomin); //esta funcion ya me lo agrega ordenado.
 	}
@@ -109,13 +107,13 @@ fAerops = fopen(argv[0], "r");
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(listADT aerops, tMovsCDT movimientos){
+int procesarMovs(char * file,vecAerops aerops, tMovsCDT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
 FILE * fMovs;
 
-fMovs = fopen(argv[1], "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
+fMovs = fopen(file, "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 	if(fMovs == NULL){//algo fallo a la hora de abrir el archivo
 		printf("No se pudo abrir el archivo\n");
 		return 1;
@@ -135,11 +133,11 @@ fMovs = fopen(argv[1], "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 	fgets(linea, 300, fMovs); //descarto la primer linea
 
 	while(fgets(linea, 300, fMovs)){
-		obtenerOaciOrig(linea, OACI_ORIGEN, DELIMIT, oaciOrig);
-		obtenerOaciDest(linea, OACI_DESTINO, DELIMIT, oaciDest);
-		obtenerFecha(linea, FECHA, DELIMIT, fecha);
-		obtenerClaseVuelo(linea, CLASE, DELIMIT, claseVuelo);
-		obtenerClasifVuelo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
+		obtenerCampo(linea, OACI_ORIGEN, DELIMIT, oaciOrig);
+		obtenerCampo(linea, OACI_DESTINO, DELIMIT, oaciDest);
+		obtenerCampo(linea, FECHA, DELIMIT, fecha);
+		obtenerCampo(linea, CLASE, DELIMIT, claseVuelo);
+		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
 
 		dia = queDiaEs(fecha);
 
@@ -148,11 +146,6 @@ fMovs = fopen(argv[1], "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 
 		aumentaClasifVuelo(clase, clasificacionVuelo(clasifVuelo)); //clasificacionVuelo() retorna un string
 		aumentaDia(movimientos, clase, dia);
-
-		
-
-
-
 	}
 
 }
