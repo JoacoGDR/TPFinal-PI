@@ -147,7 +147,7 @@ void queClasificacion(int * clasificacion, char * clasifVuelo){
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(char * file, listADT * aerops, tMovsADT movimientos){
+int procesarMovs(char * file, listADT aerops, tMovsADT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
