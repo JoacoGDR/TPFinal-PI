@@ -5,13 +5,13 @@
 #define REG 0
 #define NO_REG 1
 #define PRIV 2
-#define LETRAS 'z'-'a' +1
+#define LETRAS 'z'-'a' + 1
 
 
 
 typedef struct aeropCDT {
    char oaci[5];
-   char * denom;
+   char denom[70];
    long int cantMov;
    struct aeropCDT * next;
 } aeropCDT;
@@ -20,8 +20,8 @@ typedef struct aeropCDT {
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
 aeropADT ** nuevaLista (){
 	aeropADT resp[LETRAS];
-	for(int i=0; i++; i < LETRAS)
-		resp[i]=calloc(sizeof(struct aeropCDT));
+	for(int i = 0; i++; i < LETRAS)
+		resp[i]=calloc(1, sizeof(struct aeropCDT));
 	return resp;
 }
 
@@ -34,10 +34,10 @@ void addAerop(aeropADT lista[LETRAS], char * oaci, char * denom){
 
 static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    int c;
-   if(first == NULL || c = (strcmp(oaci, first->oaci)) < 0){
+   if(first == NULL || (c = strcmp(oaci, first->oaci)) < 0){
       aeropCDT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
-      aux->denom = denom;
+      strcpy(aux->denom, denom);
       aux->cantMov = 0;
       aux->next = first;
       return aux;
