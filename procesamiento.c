@@ -71,7 +71,7 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(listADT * aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
+int procesarAerops(listADT aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
 
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
@@ -109,7 +109,7 @@ fAerops = fopen(argv[0], "r");
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(vecAerops aerops, tMovsCDT movimientos){
+int procesarMovs(listADT aerops, tMovsCDT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
