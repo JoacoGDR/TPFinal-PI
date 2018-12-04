@@ -50,7 +50,7 @@ static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
 int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
 	aeropADT aux = list[oaci[0]-'A'];
 	int c;
-	while(aux!= NULL || (c=strcmp(aux->oaci,oaci)) <= 0){
+	while(aux != NULL && (c=strcmp(aux->oaci,oaci)) <= 0){
 		if(c==0)
 			return 1;
 		aux = aux->next;
