@@ -5,7 +5,7 @@
 #define REG 0
 #define NO_REG 1
 #define PRIV 2
-
+#define LETRAS 'z'-'a' +1
 
 
 
@@ -17,27 +17,25 @@ typedef struct aeropCDT {
 } aeropCDT;
 
 
-
-typedef struct listaCDT {
-   struct aeropCDT * aerops['Z' - 'A' + 1];  //un vector de listas (ordenadas alfabeticamente)  
-} listaCDT;                                  // de aeropueros ordenados alfabeticamente 
-
-
-listaADT nuevaLista (){
-	return calloc (1, sizeof(listaCDT));
+//La lista es un vector de aeropuertos (ordenados alfabeticamente)
+aeropADT ** nuevaLista (){
+	aeropADT resp[LETRAS];
+	for(int i=0; i++; i < LETRAS)
+		resp[i]=calloc(sizeof(struct aeropCDT));
+	return resp;
 }
 
 
-listaADT addAerop(listaADT lista, char * oaci, char * denom){
-   lista->aerops[oaci[0] - 'A'] = addAeropRec(lista->aerops[oaci[0] - 'A'], oaci, denom);
-   return lista;
+void addAerop(aeropADT lista[LETRAS], char * oaci, char * denom){
+   lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
+   return;
 }
 
 
-static aeropCDT * addAeropRec(aeropADT * first, char * oaci, char * denom){
+static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    int c;
    if(first == NULL || c = (strcmp(oaci, first->oaci)) < 0){
-      aeropCDT * aux = malloc(sizeof(aeropCDT));
+      aeropCDT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
       aux->denom = denom;
       aux->cantMov = 0;
