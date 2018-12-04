@@ -6,7 +6,7 @@
 #define NO_REG 1
 #define PRIV 2
 
-typedef struct aeropCDT * aeropADT; 
+
 
 
 typedef struct aeropCDT {
@@ -28,18 +28,9 @@ listaADT nuevaLista (){
 }
 
 
-listaADT addAerop(listaADT lista, char * oaci, char * denom){ //si no recibo el oaci, entonces no se en que letra ponerlo
-   /*if(lista->aerops[oaci[0] - 'A'] == NULL){
-      aeropADT aux = malloc(sizeof(aeropADT));
-
-      strcpy(lista->aerops[oaci[0] - 'A']->oaci, oaci);
-      lista->aerops[oaci[0] - 'A']->denom = denom;
-
-   
-   }else{*/
-      lista->aerops[oaci[0] - 'A'] = addAeropRec(lista->aerops[oaci[0] - 'A'], oaci, denom);
-   
-   return listaADT;
+listaADT addAerop(listaADT lista, char * oaci, char * denom){
+   lista->aerops[oaci[0] - 'A'] = addAeropRec(lista->aerops[oaci[0] - 'A'], oaci, denom);
+   return lista;
 }
 
 
@@ -53,10 +44,9 @@ static aeropCDT * addAeropRec(aeropADT * first, char * oaci, char * denom){
       aux->next = first;
       return aux;
    }
-   else if(c > 0){
+   else if(c > 0)
       first->next = addAeropRec(first->next, oaci, denom);
-   }
-      return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
+   return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
 
@@ -65,12 +55,12 @@ static aeropCDT * addAeropRec(aeropADT * first, char * oaci, char * denom){
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-aeropCDT * ordenaCantMovs() 
-{}
+//aeropCDT * ordenaCantMovs() 
+//{}
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista
 
 
 
-LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
+//LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
 
