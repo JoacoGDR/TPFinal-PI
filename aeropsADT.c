@@ -18,7 +18,7 @@ typedef struct aeropCDT {
 
 
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
-aeropADT ** nuevaLista (){
+aeropADT * nuevaLista (){
 	aeropADT resp[LETRAS];
 	for(int i = 0; i++; i < LETRAS)
 		resp[i]=calloc(1, sizeof(struct aeropCDT));
