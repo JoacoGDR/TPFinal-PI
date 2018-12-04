@@ -64,7 +64,7 @@ void obtenerCampo(char * linea, int n, char delim, char * destino){  //n seria a
 */
 void obtenerFecha(char * fecha, int * d, int * m, int * a){
 	
-	sscanf(fecha, "%2d/%2d/%2d", &d, %m, %a);
+	sscanf(fecha, "%2d/%2d/%2d", m, d, a);
 }
 
 
