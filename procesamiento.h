@@ -3,8 +3,8 @@
 #include "movsADT.h"
 #include "aeropADT.h"
 
-int procesarAerops(char * file, listADT aerops);
-int procesarMovs(char * file, listADT aerops, tMovsADT movimientos);
+int procesarAerops(char * file, aeropADT aerops[]);
+int procesarMovs(char * file, aeropADT aerops[], tMovsADT movimientos);
 
 
 #endif
