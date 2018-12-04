@@ -1,3 +1,5 @@
+//obtenerCampo.c
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,12 +57,11 @@ void obtenerCampo(char * linea, int n, char delim, char * destino){  //n seria a
 */
 void obtenerFecha(char * fecha, int * d, int * m, int * a){
 	
-	sscanf(fecha, "%2d/%2d/%2d", d, m, a);
+	sscanf(fecha, "%2d/%2d/%2d", &d, %m, %a);
 }
 
 
-//METODO DE SAKAMOTO (fuente: Wikipedia(poner link))
-int queDiaEs(char * fecha){                      
+int queDiaEs(char * fecha){                     //metodo de Sakamoto   
 	int d, m, a;
 	obtenerFecha(fecha, &d, &m, &a);
 	static int t[] = {0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4};
@@ -70,7 +71,8 @@ int queDiaEs(char * fecha){
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(vecAerops aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
+int procesarAerops(listADT * aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
+
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
 
