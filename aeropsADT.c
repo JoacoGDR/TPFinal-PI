@@ -62,8 +62,52 @@ int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-//aeropCDT * ordenaCantMovs() 
-//{}
+//funcion que ordena por cantidad de movimientos de cada aeropuerto.
+// y alfabeticamente (en caso de ser iguales)
+//retorna una lista con los aeropuertos ordenados
+
+//LO AGREGUE RECIEEENNN   CHEQUEEENLO!!!!!!!!!!!!1
+//!!!!!!!!!!!!!!!!!!!
+aeropADT * ordenaCantMovs(aeropADT  lista){   //quiza tenga que ser void nose. preguntar..
+   int i;
+   aeropADT * listOrdenadaAerops = NULL;
+
+   while(i < LETRAS){  //cambiar por LETRAS.
+
+   //recorro el vector y veo si es NULL esa letra.
+      for(i = 0; lista[i] == NULL; i++);         //tecnicamente habiamos hecho un calloc por cada letra
+                                                 //tendria que liberarlos si estan en NULL??
+
+      if(i < LETRAS){
+         aeropADT aux = malloc(sizeof(aeropADT));
+         aux = lista[i];
+         lista[i] = lista[i]->next;
+
+         listOrdenadaAerops = addOrdenadoRec(listOrdenadaAerops, aux);
+         free(aux);  //libero el que saque de mi vector
+      
+      }        
+   }
+
+   free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
+
+   return listOrdenadaAerops;
+}
+
+aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
+   if(first == NULL || first->cantMov < nuevo->cantMov){
+      aeropADT aux = malloc(sizeof(aeropADT));
+      strcpy(aux->oaci, nuevo->oaci);
+      strcpy(aux->denom, nuevo->denom);
+      aux->cantMov = nuevo->cantMov;
+      aux->next = first;
+      return aux;
+   }
+   if(first->cantMov > nuevo->cantMov)
+      first->next = addOrdenadoRec(first->next, nuevo);
+   return first;
+} 
+//////////////////////////////
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista
 
