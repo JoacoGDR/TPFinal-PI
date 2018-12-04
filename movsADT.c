@@ -29,7 +29,7 @@ typedef struct tMovsCDT {
 void aumentaDia(tMovsCDT * movs, int clase, int dia){
 	if(clase == CABOT){
 		movs->semana[dia].cabotaje++;
-	}else{
+	}else if(clase == INTER){
 		movs->semana[dia].internacional++;
 	}
 }
@@ -38,7 +38,7 @@ void aumentaDia(tMovsCDT * movs, int clase, int dia){
 void aumentaClasifVuelo(tMovsCDT * movs, int clase, int clasif){
 	if(clase == CABOT){
 		movs->cabotaje.[clasif]++;
-	}
-	else
+	}else if(clase == INTER){
 		movs->internacional.[clasif]++;
+	}
 }
