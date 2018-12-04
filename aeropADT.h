@@ -5,7 +5,7 @@ typedef struct listaCDT * listaADT;
 
 listaADT nuevaLista(void);
 listaADT addAerop(listaADT lista, char * oaci, char* denom);
-aeropADT ordenaCantMovs();
+aeropADT ordenaCantMovs(listaADT lista);
 void freeLista(listaADT lista);
 
 
