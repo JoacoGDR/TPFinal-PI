@@ -3,10 +3,12 @@
 
 typedef struct tMovsCDT * tMovsADT;
 
-/* Aumenta los movimientos al día insertado en la respectiva clase.
- */
+//Crea un nuevo header en la memoria. 
+tMovsADT newMov(void);
+
+// Aumenta los movimientos al día insertado en la respectiva clase.
 void aumentaDia(tMovsADT movs, int clase, int dia);
-/*Aumenta los movimientos de la clase en su respectiva clasificación.
- */
+
+//Aumenta los movimientos de la clase en su respectiva clasificación.
 void aumentaClasifVuelo(tMovsCDT * movs, int clase, int clasif);
 #endif
