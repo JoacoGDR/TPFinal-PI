@@ -10,6 +10,8 @@ void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
 	destino = fopen("movimientos_aeropuerto.csv", "wt");   // Va a crear este archivo y va a poner todo ahi
 
 	aeropADT aux = lista;
+	
+	fprintf(destino, "OACI;Denominacion;Cantidad de Movimientos\n");
 
 	while(aux != NULL){
 		fprintf(destino, "%s;%s;%ld \n", aux->oaci, aux->denom, aux->cantMov);
@@ -28,9 +30,9 @@ void query2(tMovsCDT * header){
 	fprintf(destino, "Dia;Cantidad de vuelos de cabotaje;Cantidad de vuelos Internacionales;Cantidad total\n");
 	
 	for(i = 1; i < 7; i++){
-		fprintf(destino, "%s;%d;%d;%d\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
+		fprintf(destino, "%s;%ld;%ld;%ld\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
 	}
-	fprintf(destino, "%s;%d;%d;%d\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
+	fprintf(destino, "%s;%ld;%ld;%ld\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
 	fclose(destino);
 
 }
@@ -38,26 +40,57 @@ void query2(tMovsCDT * header){
 void query3(tMovsCDT * l){
 	FILE * destino;
 	destino = fopen("composicion.csv","wt");
-	fprintf(destino, "Cabotaje;Regular;%d\n",l->cabotaje[0]);
-	fprintf(destino, "Cabotaje;No Regular;%d\n",l->cabotaje[1]);
-	fprintf(destino, "Cabotaje;Vuelo Privado;%d\n",l->cabotaje[2]);
-	fprintf(destino, "Internacional;Regular;%d\n",l->internacional[0]);
-	fprintf(destino, "Internacional;No Regular;%d\n",l->internacional[1]);
-	fprintf(destino, "Internacional;Vuelo Privado;%d\n",l->internacional[2]);
+	
+	
+	char * clasifsV[3] = {"Regular", "No Regular", "Vuelo Privado"}; //clasificacion de los vuelos
+	
+	int j;
+	
+	fprintf(destino, "Clase de vuelo;Clasificacion de vuelo;Cantidad de vuelos con esa composicion\n");
+	
+	for(j = 0; j < 3; j++){
+		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[j], l->cabotaje[j]);
+	}
+	
+	for(j = 0; j < 3; j++){
+		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[j], l->internacional[j]);
+	}
+	//O BIEN PODRIAMOS HACER UNA FUNCION QUE HAGA ESO...
+	//PARA NO REPETIR EL FOR...
+	
     fclose(destino);
 
 }
 
-int main(void){
+int main(int argc, char *argv[]){
+	
+	//Se verifica que se pase la cantidad de archivos correcta
+	if(argc > 3){
+		printf("Error: Demasiados argumentos\n");
+		return 1;
+	}else if(argc < 3){
+		printf("Error: Faltan argumentos\n");
+		return 2;
+	}
+	
+	char * file1 = argv[1];
+	char * file2 = argv[2];
+	
+	
 	tMovsADT movis = newMov();
 	aeropADT aeroLista[LETRAS] = nuevaLista();
-	procesarAerops("aeropuertos.csv",aeroLista);
-	procesarMovs("movimientos.csv",aeroLista,movis);
-	aeropADT l = ordenaCantMovs(l);
+	
+	procesarAerops(file1, aeroLista);
+	procesarMovs(file2, aeroLista, movis);
+	
+	aeropADT lista = ordenaCantMovs(l);
+	
 	//aca deberiamos hacerle free a la lista
-	query1(l);
+	query1(lista);
 	query2(movis);
 	query3(movis);
+	
 	free(movis);
+	
 	return 0;
 }
