@@ -91,7 +91,12 @@ aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){
 
    return resp;
 }
-
+void freeListaOrdenada(aeropADT first){
+	if(first == NULL)
+		return;
+	freeListaOrdenada(first->next);
+	free(first);
+}
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
    int c;
    if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
