@@ -28,9 +28,9 @@ void query2(tMovsCDT * header){
 	fprintf(destino, "Dia;Cantidad de vuelos de cabotaje;Cantidad de vuelos Internacionales;Cantidad total\n");
 	
 	for(i = 1; i < 7; i++){
-		fprintf(destino, "%s;%d;%d;%d\n", header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
+		fprintf(destino, "%s;%d;%d;%d\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
 	}
-	fprintf(destino, "%s;%d;%d;%d\n", header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
+	fprintf(destino, "%s;%d;%d;%d\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
 	fclose(destino);
 
 }
