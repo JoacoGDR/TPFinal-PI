@@ -64,7 +64,7 @@ void obtenerCampo(char * linea, int n, char delim, char * destino){  //n seria a
 */
 void obtenerFecha(char * fecha, int * d, int * m, int * a){
 	
-	sscanf(fecha, "%2d/%2d/%2d", &d, %m, %a);
+	sscanf(fecha, "%2d/%2d/%2d", m, d, a);
 }
 
 
@@ -78,26 +78,26 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(char * file, listADT * aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS.
+int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
 
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
 
-FILE * fAerops;
+	FILE * fAerops;
 
-fAerops = fopen(file, "r");
-	if(fAerops == NULL){//algo fallo a la hora de abrir el archivo
-		printf("No se pudo abrir el archivo\n");
-		return 1;
-	}
+	fAerops = fopen(file, "r");
+		if(fAerops == NULL){//algo fallo a la hora de abrir el archivo
+			printf("No se pudo abrir el archivo\n");
+			return 1;
+		}
 
 
 //------------funciones para procesar aeropuertos-------//
 //osea todo lo que es agregar movimientos, comparar OACI, etc
 	
-	char * linea;
-	char * oaci;
-	char * denomin;
+	char linea[];
+	char oaci[5];
+	char denomin[70];
 
 	fgets(linea, 300, fAerops); //ignoro la primer linea (porque me dice como esta ordenado nomas)
 
@@ -116,7 +116,7 @@ fAerops = fopen(file, "r");
 ** Funcion para que una vez obtenida la clase, nos diga cual es.
 */
 
-void queClase(int * clase, char * claseVuelo){         //PROBARLA!
+void queClase(int * clase, char * claseVuelo){         
 	if(strcmp(claseVuelo, "Cabotaje") == 0){
 		*clase = CABOT;
 	}else if(strcmp(claseVuelo, "Internacional") == 0){
@@ -147,17 +147,17 @@ void queClasificacion(int * clasificacion, char * clasifVuelo){
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(char * file, listADT * aerops, tMovsADT * movimientos){
+int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
-FILE * fMovs;
+	FILE * fMovs;
 
-fMovs = fopen(file, "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
-	if(fMovs == NULL){//algo fallo a la hora de abrir el archivo
-		printf("No se pudo abrir el archivo\n");
-		return 1;
-	}
+	fMovs = fopen(file, "r");   
+		if(fMovs == NULL){//algo fallo a la hora de abrir el archivo
+			printf("No se pudo abrir el archivo\n");
+			return 1;
+		}
 
 //----------------Funciones para procesar movimientos-----------//
 //todo lo que es agregar fechas, cabotajes regulares, etc...
@@ -178,13 +178,16 @@ fMovs = fopen(file, "r");   //NOSE SI PUEDO PONER LO DE argv aca...mmmm...
 		obtenerCampo(linea, FECHA, DELIMIT, fecha);
 		obtenerCampo(linea, CLASE, DELIMIT, claseVuelo);
 		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
+		//Agrega los movimientos a los OACI que estén en el vector
+		agregarMov(aerops,oaciOrig);
+		agregarMov(aerops,oaciDest);
 
 		dia = queDiaEs(fecha);
 
-		queClase(&clase, claseVuelo);                 //PROBARLA.
-		queClasificacion(&clasificacion, clasifVuelo);  //probarla!
+		queClase(&clase, claseVuelo);                
+		queClasificacion(&clasificacion, clasifVuelo);
 
-		aumentaClasifVuelo(clase, clasificacionVuelo(clasifVuelo)); //clasificacionVuelo() retorna un string
+		aumentaClasifVuelo(movimientos, clase, clasificacion); 
 		aumentaDia(movimientos, clase, dia);  //estas dos son fcs de movsADT
 	}
 

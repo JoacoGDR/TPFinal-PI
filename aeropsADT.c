@@ -5,72 +5,112 @@
 #define REG 0
 #define NO_REG 1
 #define PRIV 2
+#define LETRAS 'z'-'a' + 1
 
-typedef struct aeropCDT * aeropADT; 
 
 
 typedef struct aeropCDT {
    char oaci[5];
-   char * denom;
+   char denom[70];
    long int cantMov;
    struct aeropCDT * next;
 } aeropCDT;
 
 
-
-typedef struct listaCDT {
-   struct aeropCDT * aerops['Z' - 'A' + 1];  //un vector de listas (ordenadas alfabeticamente)  
-} listaCDT;                                  // de aeropueros ordenados alfabeticamente 
-
-
-listaADT nuevaLista (){
-	return calloc (1, sizeof(listaCDT));
+//La lista es un vector de aeropuertos (ordenados alfabeticamente)
+aeropADT * nuevaLista (){
+	aeropADT resp[LETRAS];
+	for(int i = 0; i++; i < LETRAS)
+		resp[i]=calloc(1, sizeof(struct aeropCDT));
+	return resp;
 }
 
 
-listaADT addAerop(listaADT lista, char * oaci, char * denom){ //si no recibo el oaci, entonces no se en que letra ponerlo
-   /*if(lista->aerops[oaci[0] - 'A'] == NULL){
-      aeropADT aux = malloc(sizeof(aeropADT));
-
-      strcpy(lista->aerops[oaci[0] - 'A']->oaci, oaci);
-      lista->aerops[oaci[0] - 'A']->denom = denom;
-
-   
-   }else{*/
-      lista->aerops[oaci[0] - 'A'] = addAeropRec(lista->aerops[oaci[0] - 'A'], oaci, denom);
-   
-   return listaADT;
+void addAerop(aeropADT lista[LETRAS], char * oaci, char * denom){
+   lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
+   return;
 }
 
 
-static aeropCDT * addAeropRec(aeropADT * first, char * oaci, char * denom){
+static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    int c;
-   if(first == NULL || c = (strcmp(oaci, first->oaci)) < 0){
-      aeropCDT * aux = malloc(sizeof(aeropCDT));
+   if(first == NULL || (c = strcmp(oaci, first->oaci)) < 0){
+      aeropCDT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
-      aux->denom = denom;
+      strcpy(aux->denom, denom);
       aux->cantMov = 0;
       aux->next = first;
       return aux;
    }
-   else if(c > 0){
+   else if(c > 0)
       first->next = addAeropRec(first->next, oaci, denom);
-   }
-      return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
+   return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
 
+//Función que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
+int agregarMov(aeropADT list[LETRAS], char oaci[5]){
+	aeropADT aux = list[oaci[0]-'A'];
+	int c;
+	while(aux != NULL && (c=strcmp(aux->oaci,oaci)) <= 0){
+		if(c==0){
+			aux->cantMov += 1;
+			return 1;
+		}
+		aux = aux->next;
+	}
+	return 0;
+}
 
 //funcion que ordena por cantidad de movimientos de cada aeropuerto.
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-aeropCDT * ordenaCantMovs() 
-{}
+//funcion que ordena por cantidad de movimientos de cada aeropuerto.
+// y alfabeticamente (en caso de ser iguales)
+//retorna una lista con los aeropuertos ordenados
+
+
+aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   
+   int i = 0;
+   aeropADT resp = NULL;
+   aeropADT aux;
+   while(i < LETRAS){
+      for(i; lista[i] == NULL ; i++)
+		free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
+	if(i < LETRAS){
+		aux = lista[i];
+        	lista[i] = lista[i]->next;
+      		resp = addOrdenadoRec(resp, aux);
+      		free(aux);  //libero el que saque de mi vector
+      }
+              
+   }
+
+   free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
+
+   return resp;
+}
+
+static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
+   int c;
+   if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
+      aeropADT aux = malloc(sizeof(aeropADT));
+      strcpy(aux->oaci, nuevo->oaci);
+      strcpy(aux->denom, nuevo->denom);
+      aux->cantMov = nuevo->cantMov;
+      aux->next = first;
+      return aux;
+   }
+   if(c >= 0)
+      first->next = addOrdenadoRec(first->next, nuevo);
+   return first;
+} 
+//////////////////////////////
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista
 
 
 
-LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
+//LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
 

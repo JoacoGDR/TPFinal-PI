@@ -1,6 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "movsADT.h"
+
 #define REG 0
 #define NO_REG 1
 #define PRIV 2
+
+#define CABOT 20
+#define INTER 21
+#define NA 22
 
 
 typedef struct dia {
@@ -21,9 +29,16 @@ typedef struct tMovsCDT {
 void aumentaDia(tMovsCDT * movs, int clase, int dia){
 	if(clase == CABOT){
 		movs->semana[dia].cabotaje++;
-	}else{
+	}else if(clase == INTER){
 		movs->semana[dia].internacional++;
 	}
 }
 
 //funcion para sumar si es regular, noRegular o privado  HACERLA
+void aumentaClasifVuelo(tMovsCDT * movs, int clase, int clasif){
+	if(clase == CABOT){
+		movs->cabotaje.[clasif]++;
+	}else if(clase == INTER){
+		movs->internacional.[clasif]++;
+	}
+}
