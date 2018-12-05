@@ -25,6 +25,12 @@ typedef struct tMovsCDT {
    long int internacional [3];    //{REG, NO_REG, PRIV}  //MOVIMIENTOS
 } tMovsCDT; 
 
+tMovsCDT * nuevoMov(){
+	return calloc(1,sizeof(tMovsCDT));
+}
+void freeMov(tMovsCDT * mov){
+	free(mov);
+}
 //funcion para sumar a cierto dia si es cabot o internacional
 void aumentaDia(tMovsCDT * movs, int clase, int dia){
 	if(clase == CABOT){
