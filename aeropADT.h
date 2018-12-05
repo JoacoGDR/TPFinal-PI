@@ -5,12 +5,26 @@
 
 typedef struct aeropCDT * aeropADT;
 
+
+/* Crea un vector de 27 listas inicializadas en NULL
+ * de aeropuertos. Hay 27 letras en el abecedario inglés
+ */
 aeropADT * nuevaLista(void);
 
+/* Agrega un aeropuerto al vector de listas
+ * respetando su orden alfabético. 
+ */
 void addAerop(aeropADT lista[LETRAS], char * oaci, char* denom);
+
+/* Verifica si existe el aeropuerto
+ * en el caso de que exista, le suma un movimiento.
+ */
 int agregarMov(aeropADT list[LETRAS], char oaci[5]);
 
-void ordenaCantMovs(aeropADT lista[LETRAS]);
+/* Retorna una lista con los aeropuertos ordenados
+ * con sus movimientos descendientemente. 
+ */
+aeropADT ordenaCantMovs(aeropADT lista[LETRAS]);
 
 
 #endif
