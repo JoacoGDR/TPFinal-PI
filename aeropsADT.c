@@ -76,18 +76,15 @@ aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){
    aeropADT resp = NULL;
    aeropADT aux;
    while(i < LETRAS){
-      for(i; lista[i] == NULL; i++){ // Si es NULL entonces voy al siguiente
-	      if(i > LETRAS)
-	      	return listOrdenadaAerops;
-      }
+      for(i; lista[i] == NULL ; i++) // Si es NULL entonces voy al siguiente
                                                  //tendria que liberarlos si estan en NULL??
-      aux = lista[i];
-      lista[i] = lista[i]->next;
-	  
-      resp = addOrdenadoRec(resp, aux);
-      free(aux);  //libero el que saque de mi vector
-      
-      }        
+	if(i < LETRAS){
+		aux = lista[i];
+        	lista[i] = lista[i]->next;
+      		resp = addOrdenadoRec(resp, aux);
+      		free(aux);  //libero el que saque de mi vector
+      }
+              
    }
 
    free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
