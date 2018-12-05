@@ -47,6 +47,8 @@ static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
+
+//Función que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
 int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 	aeropADT aux = list[oaci[0]-'A'];
 	int c;
