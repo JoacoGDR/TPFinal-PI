@@ -68,9 +68,9 @@ int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
 
 //LO AGREGUE RECIEEENNN   CHEQUEEENLO!!!!!!!!!!!!1
 //!!!!!!!!!!!!!!!!!!!
-aeropADT * ordenaCantMovs(aeropADT  lista){   //quiza tenga que ser void nose. preguntar..
-   int i;
-   aeropADT * listOrdenadaAerops = NULL;
+aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   //quiza tenga que ser void nose. preguntar..
+   int i = 0;
+   aeropADT listOrdenadaAerops = NULL;
 
    while(i < LETRAS){  //cambiar por LETRAS.
 
