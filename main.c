@@ -19,6 +19,20 @@ void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
 	fclose(destino);
 }
 
+void query2(tMovsCDT * header){
+	FILE * destino;
+	destino = fopen("dia_semana.csv","wt");
+	fprintf(destino, "lunes;%d;%d;%d\n",header->semana[1].cabotaje,header->semana[1].internacional,header->semana[1].cabotaje+header->semana[1].internacional);
+	fprintf(destino, "martes;%d;%d;%d\n",header->semana[2].cabotaje,header->semana[2].internacional,header->semana[2].cabotaje+header->semana[2].internacional);
+	fprintf(destino, "miercoles;%d;%d;%d\n",header->semana[3].cabotaje,header->semana[3].internacional,header->semana[3].cabotaje+header->semana[3].internacional);
+	fprintf(destino, "jueves;%d;%d;%d\n",header->semana[4].cabotaje,header->semana[4].internacional,header->semana[4].cabotaje+header->semana[4].internacional);
+	fprintf(destino, "viernes;%d;%d;%d\n",header->semana[5].cabotaje,header->semana[5].internacional,header->semana[5].cabotaje+header->semana[5].internacional);
+	fprintf(destino, "sabado;%d;%d;%d\n",header->semana[6].cabotaje,header->semana[6].internacional,header->semana[6].cabotaje+header->semana[6].internacional);
+	fprintf(destino, "domingo;%d;%d;%d\n",header->semana[0].cabotaje,header->semana[0].internacional,header->semana[0].cabotaje+header->semana[0].internacional);
+    fclose(destino);
+
+}
+
 int main(void){
 
 	putchar('b');
