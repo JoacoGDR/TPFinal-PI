@@ -47,12 +47,14 @@ static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
-int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
+int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 	aeropADT aux = list[oaci[0]-'A'];
 	int c;
 	while(aux != NULL && (c=strcmp(aux->oaci,oaci)) <= 0){
-		if(c==0)
+		if(c==0){
+			aux->cantMov += 1;
 			return 1;
+		}
 		aux = aux->next;
 	}
 	return 0;
