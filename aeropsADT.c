@@ -93,7 +93,8 @@ aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){
 }
 
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
-   if(first == NULL || first->cantMov <= nuevo->cantMov){
+   int c;
+   if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
       aeropADT aux = malloc(sizeof(aeropADT));
       strcpy(aux->oaci, nuevo->oaci);
       strcpy(aux->denom, nuevo->denom);
@@ -101,7 +102,7 @@ static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
       aux->next = first;
       return aux;
    }
-   if(first->cantMov > nuevo->cantMov)
+   if(c >= 0)
       first->next = addOrdenadoRec(first->next, nuevo);
    return first;
 } 
