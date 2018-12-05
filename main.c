@@ -12,7 +12,7 @@ void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
 	aeropADT aux = lista;
 
 	while(aux != NULL){
-		fprintf(destino, "%s | %s | %ld \n", aux->oaci, aux->denom, aux->cantMov);
+		fprintf(destino, "%s;%s;%ld \n", aux->oaci, aux->denom, aux->cantMov);
 		aux = aux->next;
 	}
 
