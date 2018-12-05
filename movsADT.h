@@ -11,4 +11,7 @@ void aumentaDia(tMovsADT movs, int clase, int dia);
 
 //Aumenta los movimientos de la clase en su respectiva clasificación.
 void aumentaClasifVuelo(tMovsADT movs, int clase, int clasif);
+
+void query2(tMovsADT l);
+void query3(tMovsADT l);
 #endif
