@@ -38,18 +38,29 @@ void query2(tMovsCDT * header){
 void query3(tMovsCDT * l){
 	FILE * destino;
 	destino = fopen("composicion.csv","wt");
-	fprintf(destino, "Cabotaje;Regular;%ld\n",l->cabotaje[0]);
-	fprintf(destino, "Cabotaje;No Regular;%ld\n",l->cabotaje[1]);
-	fprintf(destino, "Cabotaje;Vuelo Privado;%ld\n",l->cabotaje[2]);
-	fprintf(destino, "Internacional;Regular;%ld\n",l->internacional[0]);
-	fprintf(destino, "Internacional;No Regular;%ld\n",l->internacional[1]);
-	fprintf(destino, "Internacional;Vuelo Privado;%ld\n",l->internacional[2]);
+	
+	//char * clasesV[2] = {"Cabotaje", "Internacional"}; //clases de vuelo
+	char * clasifsV[3] = {"Regular", "No Regular", "Vuelo Privado"}; //clasificacion de los vuelos
+	
+	int i,j;
+	
+	for(j = 0; j < 3; j++){
+		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[j], l->cabotaje[j]);
+	}
+	
+	for(j = 0; j < 3; j++){
+		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[j], l->internacional[j]);
+	}
+	//O BIEN PODRIAMOS HACER UNA FUNCION QUE HAGA ESO...
+	//PARA NO REPETIR EL FOR...
+	
     fclose(destino);
 
 }
 
 int main(int argc, char *argv[]){
 	
+	//Se verifica que se pase la cantidad de archivos correcta
 	if(argc > 3){
 		printf("Error: Demasiados argumentos\n");
 		return 1;
