@@ -53,25 +53,25 @@ int main(void){
 	putchar('b');
 
 	
-	aeropADT ult = malloc(sizeof(aeropADT));
+	aeropADT ult = malloc(sizeof(aeropCDT));
 	strcpy(ult->oaci, "ABCD");
 	strcpy(ult->denom, "alpargatas");
 	ult->cantMov = 200;
 	ult->next = NULL;
 
-	aeropADT ult1 = malloc(sizeof(aeropADT));
+	aeropADT ult1 = malloc(sizeof(aeropCDT));
 	strcpy(ult1->oaci, "QWER");
 	strcpy(ult1->denom, "alpaatas");
 	ult1->cantMov = 300;
 	ult1->next = ult;
 
-	aeropADT ult2 = malloc(sizeof(aeropADT));
+	aeropADT ult2 = malloc(sizeof(aeropCDT));
 	strcpy(ult2->oaci, "JKLD");
 	strcpy(ult2->denom, "alptas");
 	ult2->cantMov = 400;
 	ult2->next = ult1;
 
-	aeropADT ult3 = malloc(sizeof(aeropADT));
+	aeropADT ult3 = malloc(sizeof(aeropCDT));
 	strcpy(ult3->oaci, "VBNM");
 	strcpy(ult3->denom, "patas");
 	ult3->cantMov = 4600;
