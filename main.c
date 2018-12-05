@@ -33,6 +33,19 @@ void query2(tMovsCDT * header){
 
 }
 
+void query3(tMovsCDT * l){
+	FILE * destino;
+	destino = fopen("composicion.csv","wt");
+	fprintf(destino, "Cabotaje;Regular;%d\n",l->cabotaje[0]);
+	fprintf(destino, "Cabotaje;No Regular;%d\n",l->cabotaje[1]);
+	fprintf(destino, "Cabotaje;Vuelo Privado;%d\n",l->cabotaje[2]);
+	fprintf(destino, "Internacional;Regular;%d\n",l->internacional[0]);
+	fprintf(destino, "Internacional;No Regular;%d\n",l->internacional[1]);
+	fprintf(destino, "Internacional;Vuelo Privado;%d\n",l->internacional[2]);
+    fclose(destino);
+
+}
+
 int main(void){
 
 	putchar('b');
