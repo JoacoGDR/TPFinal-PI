@@ -22,10 +22,7 @@ typedef struct aeropCDT {
 
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
 aeropADT * nuevaLista (){
-	aeropADT * resp;
-	for(int i = 0; i++; i < LETRAS)
-		resp[i]=calloc(1, sizeof(struct aeropCDT));
-	return resp;
+	return calloc(LETRAS,sizeof(aeropADT));
 }
 
 static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
