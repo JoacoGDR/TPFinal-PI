@@ -7,7 +7,7 @@
 
 //podriamos tener un: 
 #define DELIMIT ';'
-
+#define COTA 300
 //clases de vuelos:
 #define CABOT 20
 #define INTER 21
@@ -99,9 +99,9 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 	char oaci[5];
 	char denomin[70];
 
-	fgets(linea, 300, fAerops); //ignoro la primer linea (porque me dice como esta ordenado nomas)
+	fgets(linea, COTA, fAerops); //ignoro la primer linea (porque me dice como esta ordenado nomas)
 
-	while(fgets(linea, 300, fAerops)){
+	while(fgets(linea, COTA, fAerops)){
 		obtenerCampo(linea, OACI_AEROP, DELIMIT, oaci); //me deja en oaci[], el oaci
 		obtenerCampo(linea, DENOM, DELIMIT, denomin); //me deja en denomin, la denominacion del aeropuerto
 
@@ -162,7 +162,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 //----------------Funciones para procesar movimientos-----------//
 //todo lo que es agregar fechas, cabotajes regulares, etc...
 
-	char  linea[300];     //o bien se podrian hacer tipoOaci, tipoFecha etc. y guardarlos en un .h
+	char  linea[COTA];     //o bien se podrian hacer tipoOaci, tipoFecha etc. y guardarlos en un .h
 	char  oaciOrig[5];
 	char  oaciDest[5];
 	char  fecha[11];
@@ -170,9 +170,9 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	char  clasifVuelo[11];
 	int dia, clase, clasificacion;
 
-	fgets(linea, 300, fMovs); //descarto la primer linea
+	fgets(linea, COTA, fMovs); //descarto la primer linea
 
-	while(fgets(linea, 300, fMovs)){
+	while(fgets(linea, COTA, fMovs)){
 		obtenerCampo(linea, OACI_ORIGEN, DELIMIT, oaciOrig);
 		obtenerCampo(linea, OACI_DESTINO, DELIMIT, oaciDest);
 		obtenerCampo(linea, FECHA, DELIMIT, fecha);
