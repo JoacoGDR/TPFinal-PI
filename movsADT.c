@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "movsADT.h"
+#include "aeropADT.h"
+#include "procesamiento.h"
 
 #define REG 0
 #define NO_REG 1
@@ -25,8 +27,12 @@ typedef struct tMovsCDT {
    long int internacional [3];    //{REG, NO_REG, PRIV}  //MOVIMIENTOS
 } tMovsCDT; 
 
+tMovsCDT * nuevoMov(){
+	return calloc(1,sizeof(tMovsCDT));
+}
+
 //funcion para sumar a cierto dia si es cabot o internacional
-void aumentaDia(tMovsCDT * movs, int clase, int dia){
+void aumentaDia(tMovsADT movs, int clase, int dia){
 	if(clase == CABOT){
 		movs->semana[dia].cabotaje++;
 	}else if(clase == INTER){
@@ -35,10 +41,10 @@ void aumentaDia(tMovsCDT * movs, int clase, int dia){
 }
 
 //funcion para sumar si es regular, noRegular o privado  HACERLA
-void aumentaClasifVuelo(tMovsCDT * movs, int clase, int clasif){
+void aumentaClasifVuelo(tMovsADT movs, int clase, int clasif){
 	if(clase == CABOT){
-		movs->cabotaje.[clasif]++;
+		movs->cabotaje[clasif]++;
 	}else if(clase == INTER){
-		movs->internacional.[clasif]++;
+		movs->internacional[clasif]++;
 	}
 }

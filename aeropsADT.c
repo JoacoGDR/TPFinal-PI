@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "aeropADT.h"
+#include "procesamiento.h"
+#include "movsADT.h"
 
 #define REG 0
 #define NO_REG 1
 #define PRIV 2
-#define LETRAS 'z'-'a' + 1
+
 
 
 
@@ -19,23 +22,16 @@ typedef struct aeropCDT {
 
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
 aeropADT * nuevaLista (){
-	aeropADT resp[LETRAS];
+	aeropADT * resp;
 	for(int i = 0; i++; i < LETRAS)
 		resp[i]=calloc(1, sizeof(struct aeropCDT));
 	return resp;
 }
 
-
-void addAerop(aeropADT lista[LETRAS], char * oaci, char * denom){
-   lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
-   return;
-}
-
-
 static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
    int c;
    if(first == NULL || (c = strcmp(oaci, first->oaci)) < 0){
-      aeropCDT aux = malloc(sizeof(aeropCDT));
+      aeropADT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
       strcpy(aux->denom, denom);
       aux->cantMov = 0;
@@ -46,6 +42,13 @@ static aeropADT addAeropRec(aeropADT first, char * oaci, char * denom){
       first->next = addAeropRec(first->next, oaci, denom);
    return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
+
+void addAerop(aeropADT lista[LETRAS], char * oaci, char * denom){
+   lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
+   return;
+}
+
+
 
 
 //Función que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
@@ -70,28 +73,6 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-
-aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   
-   int i = 0;
-   aeropADT resp = NULL;
-   aeropADT aux;
-   while(i < LETRAS){
-      for(i; lista[i] == NULL ; i++)
-		free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
-	if(i < LETRAS){
-		aux = lista[i];
-        	lista[i] = lista[i]->next;
-      		resp = addOrdenadoRec(resp, aux);
-      		free(aux);  //libero el que saque de mi vector
-      }
-              
-   }
-
-   free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
-
-   return resp;
-}
-
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
    int c;
    if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
@@ -106,6 +87,33 @@ static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
       first->next = addOrdenadoRec(first->next, nuevo);
    return first;
 } 
+
+aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   
+   int i = 0;
+   aeropADT resp = NULL;
+   aeropADT aux;
+   while(i < LETRAS){
+      for(i; lista[i] == NULL ; i++)
+      free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
+   if(i < LETRAS){
+      aux = lista[i];
+         lista[i] = lista[i]->next;
+            resp = addOrdenadoRec(resp, aux);
+            free(aux);  //libero el que saque de mi vector
+      }
+              
+   }
+
+   free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
+
+   return resp;
+}
+void freeListaOrdenada(aeropADT first){
+   if(first == NULL)
+      return;
+   freeListaOrdenada(first->next);
+   free(first);
+}
 //////////////////////////////
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista
