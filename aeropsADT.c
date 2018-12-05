@@ -76,8 +76,8 @@ aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){
    aeropADT resp = NULL;
    aeropADT aux;
    while(i < LETRAS){
-      for(i; lista[i] == NULL ; i++) // Si es NULL entonces voy al siguiente
-                                                 //tendria que liberarlos si estan en NULL??
+      for(i; lista[i] == NULL ; i++)
+		free(lista[i]);// Si es NULL entonces voy al siguiente y libero(porque habia hecho calloc)                                     
 	if(i < LETRAS){
 		aux = lista[i];
         	lista[i] = lista[i]->next;
