@@ -178,6 +178,9 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		obtenerCampo(linea, FECHA, DELIMIT, fecha);
 		obtenerCampo(linea, CLASE, DELIMIT, claseVuelo);
 		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
+		//Agrega los movimientos a los OACI que estén en el vector
+		agregarMov(aerops,oaciOrig);
+		agregarMov(aerops,oaciDest);
 
 		dia = queDiaEs(fecha);
 
