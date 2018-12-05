@@ -58,5 +58,6 @@ int main(void){
 	query1(l);
 	query2(movis);
 	query3(movis);
+	free(movis);
 	return 0;
 }
