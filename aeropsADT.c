@@ -70,16 +70,13 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-//LO AGREGUE RECIEEENNN   CHEQUEEENLO!!!!!!!!!!!!1
-//!!!!!!!!!!!!!!!!!!!
-aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   //quiza tenga que ser void nose. preguntar..
+
+aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   
    int i = 0;
    aeropADT resp = NULL;
    aeropADT aux;
-   while(i < LETRAS){  //cambiar por LETRAS.
-
-   //recorro el vector y veo si es NULL esa letra.
-      for(i; lista[i] == NULL; i++){ //tecnicamente habiamos hecho un calloc por cada letra
+   while(i < LETRAS){
+      for(i; lista[i] == NULL; i++){ // Si es NULL entonces voy al siguiente
 	      if(i > LETRAS)
 	      	return listOrdenadaAerops;
       }
