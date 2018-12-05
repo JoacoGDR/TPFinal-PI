@@ -26,5 +26,6 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]);
  */
 aeropADT ordenaCantMovs(aeropADT lista[LETRAS]);
 
+void query1(aeropADT first);
 
 #endif
