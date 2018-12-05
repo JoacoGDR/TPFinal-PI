@@ -49,13 +49,14 @@ void query3(tMovsCDT * l){
 }
 
 int main(void){
-	tMovsADT movis = calloc(sizeof(tMovsCDT));
+	tMovsADT movis = newMov();
 	aeropADT aeroLista[LETRAS] = nuevaLista();
 	procesarAerops("aeropuertos.csv",aeroLista);
 	procesarMovs("movimientos.csv",aeroLista,movis);
 	aeropADT l = ordenaCantMovs(l);
+	//aca deberiamos hacerle free a la lista
 	query1(l);
-	query2(l);
-	query3(l);
+	query2(movis);
+	query3(movis);
 	return 0;
 }
