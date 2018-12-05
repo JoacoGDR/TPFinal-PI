@@ -94,3 +94,23 @@ int main(int argc, char *argv[]){
 	
 	return 0;
 }
+
+int main(void){
+	printf("QUE?");
+	aeropADT * v = nuevaLista();
+	printf("E");
+	addAerop(v,"AAAA","A");
+	addAerop(v,"AAAB","AR");
+	addAerop(v,"CAAE","ARG");
+	addAerop(v,"CAAA","ARGE");
+	printf("A");
+	agregarMov(v,"CAAA");
+	agregarMov(v,"AAAA");
+	agregarMov(v,"AAAB");
+	agregarMov(v,"AAAB");
+	printf("B");
+	aeropADT list = ordenaCantMovs(v);
+	printf("C");
+	query1(list);
+	return 0;
+}
