@@ -28,9 +28,9 @@ void query2(tMovsCDT * header){
 	fprintf(destino, "Dia;Cantidad de vuelos de cabotaje;Cantidad de vuelos Internacionales;Cantidad total\n");
 	
 	for(i = 1; i < 7; i++){
-		fprintf(destino, "%s;%d;%d;%d\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
+		fprintf(destino, "%s;%ld;%ld;%ld\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
 	}
-	fprintf(destino, "%s;%d;%d;%d\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
+	fprintf(destino, "%s;%ld;%ld;%ld\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
 	fclose(destino);
 
 }
@@ -38,26 +38,44 @@ void query2(tMovsCDT * header){
 void query3(tMovsCDT * l){
 	FILE * destino;
 	destino = fopen("composicion.csv","wt");
-	fprintf(destino, "Cabotaje;Regular;%d\n",l->cabotaje[0]);
-	fprintf(destino, "Cabotaje;No Regular;%d\n",l->cabotaje[1]);
-	fprintf(destino, "Cabotaje;Vuelo Privado;%d\n",l->cabotaje[2]);
-	fprintf(destino, "Internacional;Regular;%d\n",l->internacional[0]);
-	fprintf(destino, "Internacional;No Regular;%d\n",l->internacional[1]);
-	fprintf(destino, "Internacional;Vuelo Privado;%d\n",l->internacional[2]);
+	fprintf(destino, "Cabotaje;Regular;%ld\n",l->cabotaje[0]);
+	fprintf(destino, "Cabotaje;No Regular;%ld\n",l->cabotaje[1]);
+	fprintf(destino, "Cabotaje;Vuelo Privado;%ld\n",l->cabotaje[2]);
+	fprintf(destino, "Internacional;Regular;%ld\n",l->internacional[0]);
+	fprintf(destino, "Internacional;No Regular;%ld\n",l->internacional[1]);
+	fprintf(destino, "Internacional;Vuelo Privado;%ld\n",l->internacional[2]);
     fclose(destino);
 
 }
 
-int main(void){
+int main(int argc, char *argv[]){
+	
+	if(argc > 3){
+		printf("Error: Demasiados argumentos\n");
+		return 1;
+	}else if(argc < 3){
+		printf("Error: Faltan argumentos\n");
+		return 2;
+	}
+	
+	char * file1 = argv[1];
+	char * file2 = argv[2];
+	
+	
 	tMovsADT movis = newMov();
 	aeropADT aeroLista[LETRAS] = nuevaLista();
-	procesarAerops("aeropuertos.csv",aeroLista);
-	procesarMovs("movimientos.csv",aeroLista,movis);
-	aeropADT l = ordenaCantMovs(l);
+	
+	procesarAerops(file1, aeroLista);
+	procesarMovs(file2, aeroLista, movis);
+	
+	aeropADT lista = ordenaCantMovs(l);
+	
 	//aca deberiamos hacerle free a la lista
-	query1(l);
+	query1(lista);
 	query2(movis);
 	query3(movis);
+	
 	free(movis);
+	
 	return 0;
 }
