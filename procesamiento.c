@@ -190,5 +190,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		aumentaClasifVuelo(movimientos, clase, clasificacion); 
 		aumentaDia(movimientos, clase, dia);  //estas dos son fcs de movsADT
 	}
+	fclose(fMovs);
+	return 0;
 
 }
