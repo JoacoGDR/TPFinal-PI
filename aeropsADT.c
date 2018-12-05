@@ -70,28 +70,28 @@ int perteneceOaci(aeropADT list[LETRAS], char oaci[5]){
 //!!!!!!!!!!!!!!!!!!!
 aeropADT ordenaCantMovs(aeropADT  lista[LETRAS]){   //quiza tenga que ser void nose. preguntar..
    int i = 0;
-   aeropADT listOrdenadaAerops = NULL;
-
+   aeropADT resp = NULL;
+   aeropADT aux;
    while(i < LETRAS){  //cambiar por LETRAS.
 
    //recorro el vector y veo si es NULL esa letra.
-      for(i = 0; lista[i] == NULL; i++);         //tecnicamente habiamos hecho un calloc por cada letra
+      for(i; lista[i] == NULL; i++){ //tecnicamente habiamos hecho un calloc por cada letra
+	      if(i > LETRAS)
+	      	return listOrdenadaAerops;
+      }
                                                  //tendria que liberarlos si estan en NULL??
-
-      if(i < LETRAS){
-         aeropADT aux = malloc(sizeof(aeropADT));
-         aux = lista[i];
-         lista[i] = lista[i]->next;
-
-         listOrdenadaAerops = addOrdenadoRec(listOrdenadaAerops, aux);
-         free(aux);  //libero el que saque de mi vector
+      aux = lista[i];
+      lista[i] = lista[i]->next;
+	  
+      resp = addOrdenadoRec(resp, aux);
+      free(aux);  //libero el que saque de mi vector
       
       }        
    }
 
    free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
 
-   return listOrdenadaAerops;
+   return resp;
 }
 
 aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
