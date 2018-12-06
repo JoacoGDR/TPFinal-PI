@@ -22,7 +22,7 @@ typedef struct dia {
 
 typedef struct tMovsCDT {
    //los dias iran de domingo=0 a sabado=6
-   Tdia semana [7];                                      //MOVIMIENTOS
+   Tdia semana [9];                                      //MOVIMIENTOS
    long int cabotaje [3];         //{REG, NO_REG, PRIV}  //MOVIMIENTOS
    long int internacional [3];    //{REG, NO_REG, PRIV}  //MOVIMIENTOS
 } tMovsCDT; 
