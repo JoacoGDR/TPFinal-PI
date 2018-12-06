@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
 	
 	aeropADT lista = ordenaCantMovs(aeroLista);
 	query1(lista);
-	freeListaOrdenada(lista)//aca deberiamos hacerle free a la lista
+	freeListaOrdenada(lista);//aca deberiamos hacerle free a la lista
 	query2(movis);
 	query3(movis);
 	free(movis);
