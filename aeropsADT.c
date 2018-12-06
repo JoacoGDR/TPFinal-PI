@@ -45,7 +45,7 @@ void addAerop(aeropADT  lista[LETRAS], char oaci[5], char denom[70]){
 
 
 
-//Función que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
+//FunciÃ³n que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
 int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 	aeropADT aux = list[oaci[0]-'A'];
 	int c;
@@ -87,7 +87,7 @@ aeropADT ordenaCantMovs(aeropADT lista[LETRAS]){
    aeropADT resp = NULL;
    aeropADT aux;
    while(i < LETRAS){
-      for(i; lista[i] == NULL ; i++)
+      for(;i < LETRAS && lista[i] == NULL ; i++)
       free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
       if(i < LETRAS){
          aux = lista[i];
@@ -132,4 +132,3 @@ void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
 
 
 //LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
-

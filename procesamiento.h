@@ -14,12 +14,13 @@
 #define OACI_AEROP 2
 #define DENOM 5
 
-//Para movimientos.csv
+/*Para movimientos.csv
 #define OACI_ORIGEN 6
 #define OACI_DESTINO 7
 #define FECHA 1
 #define CLASE 3
 #define CLASIFICACION 4 
+*/
 
 /*
 ** Recorre la linea hasta el campo deseado, y luego lo copia en 'destino'.
@@ -29,7 +30,7 @@
 void obtenerCampo(char * linea, int campo, char delim, char * destino);
 
 /*
-** Dada una fecha, deja en cada parametro (m, d, a) el mes, el dia y el anio respectivamente
+** Dada una fecha, deja en cada parametro (d, m, a) el mes, el dia y el anio respectivamente
 */
 
 void obtenerFecha(char * fecha, int * d, int * m, int * a);
@@ -66,14 +67,14 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]);
 ** un valor que representa dicha clase.
 */
 
-void queClase(int * clase, char * claseVuelo);
+int queClase(char * claseVuelo);
 
 /*
 ** Una vez obtenido el campo correspondiente a la clasificacion del vuelo ('clasifVuelo'), deja en el parametro E/S
 ** 'casificacion' un valor que representa dicha clasificacion.
 */
 
-void queClasificacion(int * clasificacion, char * clasifVuelo);
+int queClasificacion(char * clasifVuelo);
 
 /*
 ** Recibe un string que contiene el nombre del archivo del cual tomara la informacion,
@@ -91,3 +92,4 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos);
 
 
 #endif
+

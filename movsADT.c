@@ -32,20 +32,22 @@ tMovsCDT * newMov(){
 }
 
 //funcion para sumar a cierto dia si es cabot o internacional
-void aumentaDia(tMovsADT movs, int clase, int dia){
-	if(clase == CABOT){
+void aumentaDia(tMovsADT movs, int clasif, int dia){
+	if(clasif == CABOT){
 		movs->semana[dia].cabotaje++;
-	}else if(clase == INTER){
+	}else if(clasif == INTER){
 		movs->semana[dia].internacional++;
 	}
 }
 
 //funcion para sumar si es regular, noRegular o privado  HACERLA
 void aumentaClasifVuelo(tMovsADT movs, int clase, int clasif){
-	if(clase == CABOT){
-		movs->cabotaje[clasif]++;
-	}else if(clase == INTER){
-		movs->internacional[clasif]++;
+	if(clase == NA)
+		return;
+	if(clasif == CABOT){
+		movs->cabotaje[clase]++;
+	}else if(clasif == INTER){
+		movs->internacional[clase]++;
 	}
 }
 
@@ -89,3 +91,4 @@ void query3(tMovsADT l){
     fclose(destino);
 
 }
+
