@@ -28,9 +28,8 @@ int main(int argc, char *argv[]){
 	procesarMovs(file2, aeroLista, movis);
 	
 	aeropADT lista = ordenaCantMovs(aeroLista);
-	
-	//aca deberiamos hacerle free a la lista
 	query1(lista);
+	freeListaOrdenada(lista)//aca deberiamos hacerle free a la lista
 	query2(movis);
 	query3(movis);
 	free(movis);
