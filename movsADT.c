@@ -91,4 +91,3 @@ void query3(tMovsADT l){
     fclose(destino);
 
 }
-

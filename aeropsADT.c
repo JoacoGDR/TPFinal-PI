@@ -9,6 +9,8 @@
 #define NO_REG 1
 #define PRIV 2
 
+
+
 typedef struct aeropCDT {
    char oaci[5];
    char denom[70];
@@ -16,10 +18,19 @@ typedef struct aeropCDT {
    struct aeropCDT * next;
 } aeropCDT;
 
+typedef struct vecList{
+	aeropCDT * vecAeros[27];  //aca ya tengo un vector de pteros a aeropCDT
+}vecList;
+
 
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
-aeropADT * nuevaLista (){
-	return calloc(LETRAS,sizeof(aeropADT));
+vec nuevaLista (){
+	vec new = calloc(1, sizeof(vecList));
+	
+int i;
+	for(i = 0; i<27; i++)
+		new->vecAeros[i] = calloc(1,sizeof(aeropCDT));
+	return new;
 }
 
 static aeropADT addAeropRec(aeropADT first, char oaci[5], char denom[70]){
@@ -37,17 +48,17 @@ static aeropADT addAeropRec(aeropADT first, char oaci[5], char denom[70]){
    return first;  //si son iguales, entonces ya lo puse (no deberia pasar igual).   
 }
 
-void addAerop(aeropADT  lista[LETRAS], char oaci[5], char denom[70]){
-   lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
+void addAerop(vec lista, char oaci[5], char denom[70]){
+   lista->vecAeros[oaci[0] - 'A'] = addAeropRec(lista->vecAeros[oaci[0] - 'A'], oaci, denom);
    return;
 }
 
 
 
 
-//FunciÃ³n que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
-int agregarMov(aeropADT list[LETRAS], char oaci[5]){
-	aeropADT aux = list[oaci[0]-'A'];
+//Función que busca un aeropuerto y si existe en la lista entonces le agrega un movimiento
+int agregarMov(vec list, char oaci[5]){
+	aeropADT aux = list->vecAeros[oaci[0]-'A'];
 	int c;
 	while(aux != NULL && (c=strcmp(aux->oaci,oaci)) <= 0){
 		if(c==0){
@@ -82,24 +93,26 @@ static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
    return first;
 } 
 
-aeropADT ordenaCantMovs(aeropADT lista[LETRAS]){   
+aeropADT ordenaCantMovs(vec lista){   
    int i = 0;
    aeropADT resp = NULL;
    aeropADT aux;
    while(i < LETRAS){
-      for(;i < LETRAS && lista[i] == NULL ; i++)
-      free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
+      for(;i < LETRAS && lista->vecAeros[i] == NULL ; i++)
+     	 free(lista->vecAeros[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
       if(i < LETRAS){
-         aux = lista[i];
-         lista[i] = lista[i]->next;
-         resp = addOrdenadoRec(resp, aux);
+	aux = lista->vecAeros[i];
+	resp = addOrdenadoRec(resp, aux);
+ 	
+	lista->vecAeros[i] = lista->vecAeros[i]->next;
+	
          free(aux);  //libero el que saque de mi vector
       }
               
    }
 
-   free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
-
+   free(lista->vecAeros);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
+  // free(lista); valg
    return resp;
 }
 void freeListaOrdenada(aeropADT first){
@@ -107,6 +120,7 @@ void freeListaOrdenada(aeropADT first){
       return;
    freeListaOrdenada(first->next);
    free(first);
+	return;
 }
 
 void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos

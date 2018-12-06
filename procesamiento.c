@@ -83,7 +83,7 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
 
 //------------------------Procesamos aeropuertos----------------//
 
-int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
+int procesarAerops(char * file, vec aerops){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
 
 //podriamos ver que onda los errores
 //--------------abrimos el archivo: aeropuertos.csv------------------//
@@ -91,7 +91,7 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 	FILE * fAerops;
 
 	fAerops = fopen(file, "r");
-		if(fAerops == NULL){//algo fallo a la hora de abrir el archivo
+		if(fAerops == NULL){	//algo fallo a la hora de abrir el archivo
 			printf("No se pudo abrir el archivo\n");
 			return 1;
 		}
@@ -121,10 +121,10 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 ** Funcion para que una vez obtenida la clase, nos diga cual es.
 */
 
-int queClase( char * claseVuelo){         
-	if(strcmp(claseVuelo, "Cabotaje") == 0){
+int queClasificacion( char * clasifV){         
+	if(strcmp(clasifV, "Cabotaje") == 0){
 		return CABOT;
-	}else if(strcmp(claseVuelo, "Internacional") == 0){
+	}else if(strcmp(clasifV, "Internacional") == 0){
 		return INTER;
 	}else{
 		return NA;
@@ -135,12 +135,12 @@ int queClase( char * claseVuelo){
 ** Funcion que una vez obtenida la clasificacon, nos diga cual es.
 */
 
-int queClasificacion( char * clasifVuelo){
-	if(strcmp(clasifVuelo, "Regular") == 0){
+int queClase( char * claseV){
+	if(strcmp(claseV, "Regular") == 0){
 		return REG;
-	}else if(strcmp(clasifVuelo, "No Regular") == 0){
+	}else if(strcmp(claseV, "No Regular") == 0){
 		return NO_REG;
-	}else if(strncmp(clasifVuelo, "Vuelo Privado", 13) == 0){
+	}else if(strncmp(claseV, "Vuelo Privado", 13) == 0){
 		return PRIV;
 	}else{ 								//por si alguno no tiene nada o algo que no nos sirve:
 		return NA; //siendo NA un sinonimo de basura.
@@ -152,7 +152,7 @@ int queClasificacion( char * clasifVuelo){
 
 //---------------Procesamos movimientos---------------------//
 
-int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
+int procesarMovs(char * file, vec aerops, tMovsADT movimientos){
 
 //----------------------abrimos el archivo: movimientos.csv------------//
 
@@ -176,6 +176,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	char tipoDeMovimiento[11];
 	int dia, clase, clasificacion;
 
+
 	fgets(linea, COTA, fMovs); //descarto la primer linea
 
 	while(fgets(linea, COTA, fMovs)){
@@ -186,7 +187,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
 		obtenerCampo(linea, TDM, DELIMIT, tipoDeMovimiento);
 		
-		//Agrega los movimientos a los OACI que estÃ©n en el vector
+		//Agrega los movimientos a los OACI que estén en el vector
 		if(strcmp(tipoDeMovimiento,"Aterrizaje"))
 			agregarMov(aerops,oaciDest);
 		else if(strcmp(tipoDeMovimiento,"Despegue"))
@@ -194,9 +195,8 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 
 		dia = queDiaEs(fecha);  //supuestamente va del 0 al 6...
 
-		clasificacion = queClase(clasifVuelo);     //los switchee            
-		clase = queClasificacion(claseVuelo);	   //CAMBIAR NOMBRES URGENTE!
-		
+		clase = queClase(claseVuelo);     //los switchee            
+		clasificacion = queClasificacion(clasifVuelo);	   
 		aumentaClasifVuelo(movimientos, clase, clasificacion); 
 		aumentaDia(movimientos, clasificacion, dia);  //estas dos son fcs de movsADT
 	}
