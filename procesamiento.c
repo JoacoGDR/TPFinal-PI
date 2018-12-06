@@ -31,6 +31,7 @@
 #define FECHA 1
 #define CLASE 3
 #define CLASIFICACION 4 
+#define TDM 5
 
 //o bien hacer un enum ya que tenemos 1,2,3,4,5,6,7
 
@@ -172,6 +173,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	char  fecha[11];
 	char  claseVuelo[15];
 	char  clasifVuelo[11];
+	char tipoDeMovimiento[11];
 	int dia, clase, clasificacion;
 
 	fgets(linea, COTA, fMovs); //descarto la primer linea
@@ -182,9 +184,12 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		obtenerCampo(linea, FECHA, DELIMIT, fecha);
 		obtenerCampo(linea, CLASE, DELIMIT, claseVuelo);
 		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
+		obtenerCampo(linea, TDM, DELIMIT, tipoDeMovimiento);
 		//Agrega los movimientos a los OACI que estén en el vector
-		agregarMov(aerops,oaciOrig);
-		agregarMov(aerops,oaciDest);
+		if(strcmp(tipoDeMovimiento,"Aterrizaje"))
+			agregarMov(aerops,oaciDest);
+		else if(strcmp(tipoDeMovimiento,"Despegue"))
+			agregarMov(aerops,oaciOrig);
 
 		dia = queDiaEs(fecha);
 
