@@ -11,7 +11,7 @@
 
 //podriamos tener un: 
 #define DELIMIT ';'
-#define COTA 300
+#define COTA 400
 //clases de vuelos:
 #define CABOT 20
 #define INTER 21
@@ -69,7 +69,7 @@ void obtenerCampo(char * linea, int n, char delim, char * destino){  //n seria a
 */
 void obtenerFecha(char * fecha, int * d, int * m, int * a){
 	
-	sscanf(fecha, "%2d/%2d/%2d", m, d, a);
+	sscanf(fecha, "%2d/%2d/%4d", d, m, a);
 }
 
 
@@ -121,13 +121,13 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 ** Funcion para que una vez obtenida la clase, nos diga cual es.
 */
 
-void queClase(int * clase, char * claseVuelo){         
+int queClase( char * claseVuelo){         
 	if(strcmp(claseVuelo, "Cabotaje") == 0){
-		*clase = CABOT;
+		return CABOT;
 	}else if(strcmp(claseVuelo, "Internacional") == 0){
-		*clase = INTER;
+		return INTER;
 	}else{
-		*clase = NA;
+		return NA;
 	}
 }
 
@@ -135,15 +135,15 @@ void queClase(int * clase, char * claseVuelo){
 ** Funcion que una vez obtenida la clasificacon, nos diga cual es.
 */
 
-void queClasificacion(int * clasificacion, char * clasifVuelo){
+int queClasificacion( char * clasifVuelo){
 	if(strcmp(clasifVuelo, "Regular") == 0){
-		*clasificacion = REG;
+		return REG;
 	}else if(strcmp(clasifVuelo, "No Regular") == 0){
-		*clasificacion = NO_REG;
-	}else if(strcmp(clasifVuelo, "Vuelo Privado con Matrícula Nacional") == 0 || strcmp(clasifVuelo, "Vuelo Privado con Matrícula Extranjera") == 0){
-		*clasificacion = PRIV;
-	}else{ //por si alguno no tiene nada o algo que no nos sirve:
-		*clasificacion = NA; //siendo NA un sinonimo de basura.
+		return NO_REG;
+	}else if(strncmp(clasifVuelo, "Vuelo Privado", 13) == 0){
+		return PRIV;
+	}else{ 								//por si alguno no tiene nada o algo que no nos sirve:
+		return NA; //siendo NA un sinonimo de basura.
 	}
 }
 
@@ -171,8 +171,8 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	char  oaciOrig[5];
 	char  oaciDest[5];
 	char  fecha[11];
-	char  claseVuelo[15];
-	char  clasifVuelo[11];
+	char  claseVuelo[38];
+	char  clasifVuelo[15];
 	char tipoDeMovimiento[11];
 	int dia, clase, clasificacion;
 
@@ -185,19 +185,20 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		obtenerCampo(linea, CLASE, DELIMIT, claseVuelo);
 		obtenerCampo(linea, CLASIFICACION, DELIMIT, clasifVuelo);
 		obtenerCampo(linea, TDM, DELIMIT, tipoDeMovimiento);
+		
 		//Agrega los movimientos a los OACI que estén en el vector
 		if(strcmp(tipoDeMovimiento,"Aterrizaje"))
 			agregarMov(aerops,oaciDest);
 		else if(strcmp(tipoDeMovimiento,"Despegue"))
 			agregarMov(aerops,oaciOrig);
 
-		dia = queDiaEs(fecha);
+		dia = queDiaEs(fecha);  //supuestamente va del 0 al 6...
 
-		queClase(&clase, claseVuelo);                
-		queClasificacion(&clasificacion, clasifVuelo);
-
+		clasificacion = queClase(clasifVuelo);     //los switchee            
+		clase = queClasificacion(claseVuelo);	   //CAMBIAR NOMBRES URGENTE!
+		
 		aumentaClasifVuelo(movimientos, clase, clasificacion); 
-		aumentaDia(movimientos, clase, dia);  //estas dos son fcs de movsADT
+		aumentaDia(movimientos, clasificacion, dia);  //estas dos son fcs de movsADT
 	}
 	fclose(fMovs);
 	return 0;
