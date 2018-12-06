@@ -23,7 +23,7 @@ aeropADT * nuevaLista (){
 }
 
 static aeropADT addAeropRec(aeropADT first, char oaci[5], char denom[70]){
-   int c;
+   long int c;
    if(first == NULL || (c = strcmp(oaci, first->oaci)) < 0){
       aeropADT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
