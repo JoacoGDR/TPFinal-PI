@@ -8,26 +8,37 @@
 // Delimitador:
 #define DELIMIT ';'
 
-//Posiciones de los campos dentro de cada linea del archivo:
+//cantidad de caracteres maxima de cada campo
+#define CARS_OACI 4
+#define CARS_FECHA 10
+#define CARS_CLASE 39
+#define CARS_CLASIF 14
+#define CARS_TDM 11
+#define CARS_DENOM 70
 
-//Para aeropuertos.csv
+
+//Posiciones de los campos dentro de cada linea del archivo
+
+/*Para aeropuertos.csv*/
+
 #define OACI_AEROP 2
 #define DENOM 5
 
-/*Para movimientos.csv
+//Para movimientos.csv
 #define OACI_ORIGEN 6
 #define OACI_DESTINO 7
 #define FECHA 1
 #define CLASE 3
 #define CLASIFICACION 4 
-*/
+#define TDM 5
 
 /*
 ** Recorre la linea hasta el campo deseado, y luego lo copia en 'destino'.
 ** Cada campo esta delimitado por un delimitador 'delim'.
+** file: indica de que archivo se obtiene el campo
 */
 
-void obtenerCampo(char * linea, int campo, char delim, char * destino);
+void obtenerCampo(char * linea, int campo, char delim, char * file, char * destino);
 
 /*
 ** Dada una fecha, deja en cada parametro (d, m, a) el mes, el dia y el anio respectivamente

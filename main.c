@@ -5,42 +5,6 @@
 #include "procesamiento.h"
 
 
-void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
-   
-   FILE * destino;
-   destino = fopen("a.csv", "wt");   // Va a crear este archivo y va a poner todo ahi
-   
-   fprintf(destino, "OACI;Denominacion;Cantidad de Movimientos\n");
-
-   printList(lista, destino);
-   freeListaOrdenada(lista);
-   
-   fclose(destino);
-}
-
-void query2(tMovsADT h){
-	FILE * destino;
-	destino = fopen("dia_semana.csv","wt");
-		
-	fprintf(destino, "Dia;Cabotaje;Internacionales;Total\n");
-	printPorSemana(h, destino);
-	
-	fclose(destino);
-
-}
-
-void query3(tMovsADT l){
-	FILE * destino;
-	destino = fopen("composicion.csv","wt");
-	
-	
-	fprintf(destino, "Clasificacion de Vuelo;Clase de Vuelo;Movimientos\n");
-	printPorVuelo (l, destino);
-	free (l);
-	
-    fclose(destino);
-
-}
 
 int main(int argc, char *argv[]){
 	
@@ -53,8 +17,8 @@ int main(int argc, char *argv[]){
 		return 2;
 	}
 	
-	char * file1 = argv[1];
-	char * file2 = argv[2];
+	char * file1 = "aeropuertos.csv";
+	char * file2 = "movimientos.csv";
 	
 	
 	tMovsADT movis = newMov();
