@@ -202,8 +202,8 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	}
 		dia = queDiaEs(fecha);  //supuestamente va del 0 al 6...
 
-		clasificacion = queClasificacion(clasifVuelo);     //los switchee            
-		clase = queClase(claseVuelo);	   //CAMBIAR NOMBRES URGENTE!
+		clasificacion = queClasificacion(clasifVuelo);           
+		clase = queClase(claseVuelo);	  
 		
 		aumentaClasifVuelo(movimientos, clase, clasificacion); 
 		aumentaDia(movimientos, clasificacion, dia);  //estas dos son fcs de movsADT
