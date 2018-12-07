@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "aeropADT.h"
 #include "movsADT.h"
 #include "procesamiento.h"
@@ -81,12 +82,12 @@ int queDiaEs(char * fecha){                     //metodo de Sakamoto
         return (y + y/4 - y/100 + y/400 + t[m-1] + d) % 7;
 }
 
-//------------------------Procesamos aeropuertos----------------//
+//------------------------Procesamos aeropuertos----------------
 
 int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara vacio. BASICAMENTE, LLENA LA LISTA DE AEROPS. (PROBARLA)
 
 //podriamos ver que onda los errores
-//--------------abrimos el archivo: aeropuertos.csv------------------//
+//--------------abrimos el archivo: aeropuertos.csv------------------
 
 	FILE * fAerops;
 
@@ -97,20 +98,24 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 		}
 
 
-//------------funciones para procesar aeropuertos-------//
+//------------funciones para procesar aeropuertos-------
 //osea todo lo que es agregar movimientos, comparar OACI, etc
 	
 	char linea[COTA];
 	char oaci[5];
 	char denomin[70];
 
+
 	fgets(linea, COTA, fAerops); //ignoro la primer linea (porque me dice como esta ordenado nomas)
 
 	while(fgets(linea, COTA, fAerops)){
 		obtenerCampo(linea, OACI_AEROP, DELIMIT, oaci); //me deja en oaci[], el oaci
 		obtenerCampo(linea, DENOM, DELIMIT, denomin); //me deja en denomin, la denominacion del aeropuerto
-
+	
+		if(isalpha(oaci[0])){
+		
 		addAerop(aerops, oaci, denomin); //esta funcion ya me lo agrega ordenado.
+		}
 	}
 	fclose(fAerops);
 	return 0;
@@ -150,11 +155,11 @@ int queClasificacion( char * clasifVuelo){
 
 
 
-//---------------Procesamos movimientos---------------------//
+//---------------Procesamos movimientos---------------------
 
 int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 
-//----------------------abrimos el archivo: movimientos.csv------------//
+//----------------------abrimos el archivo: movimientos.csv------------
 
 	FILE * fMovs;
 
@@ -164,7 +169,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 			return 1;
 		}
 
-//----------------Funciones para procesar movimientos-----------//
+//----------------Funciones para procesar movimientos-----------
 //todo lo que es agregar fechas, cabotajes regulares, etc...
 
 	char  linea[COTA];     //o bien se podrian hacer tipoOaci, tipoFecha etc. y guardarlos en un .h
@@ -187,11 +192,14 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 		obtenerCampo(linea, TDM, DELIMIT, tipoDeMovimiento);
 		
 		//Agrega los movimientos a los OACI que estén en el vector
-		if(strcmp(tipoDeMovimiento,"Aterrizaje"))
-			agregarMov(aerops,oaciDest);
-		else if(strcmp(tipoDeMovimiento,"Despegue"))
-			agregarMov(aerops,oaciOrig);
+	
+	if(isalpha(oaciOrig[0]) && isalpha(oaciDest[0]) && isalpha(claseVuelo[0]) && isalpha(clasifVuelo[0])){
 
+		if(strcmp(tipoDeMovimiento,"Aterrizaje") == 0)
+			agregarMov(aerops,oaciDest);
+		else if(strcmp(tipoDeMovimiento,"Despegue") == 0)
+			agregarMov(aerops,oaciOrig);
+	}
 		dia = queDiaEs(fecha);  //supuestamente va del 0 al 6...
 
 		clasificacion = queClase(clasifVuelo);     //los switchee            

@@ -24,6 +24,7 @@ aeropADT * nuevaLista (){
 
 static aeropADT addAeropRec(aeropADT first, char oaci[5], char denom[70]){
    long int c;
+	
    if(first == NULL || (c = strcmp(oaci, first->oaci)) < 0){
       aeropADT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, oaci);
@@ -38,6 +39,7 @@ static aeropADT addAeropRec(aeropADT first, char oaci[5], char denom[70]){
 }
 
 void addAerop(aeropADT  lista[LETRAS], char oaci[5], char denom[70]){
+
    lista[oaci[0] - 'A'] = addAeropRec(lista[oaci[0] - 'A'], oaci, denom);
    return;
 }
@@ -68,8 +70,8 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 //retorna una lista con los aeropuertos ordenados
 
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
-   int c;
-   if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
+   long int c;
+   if(first == NULL || (c=first->cantMov - nuevo->cantMov)< 0){
       aeropADT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, nuevo->oaci);
       strcpy(aux->denom, nuevo->denom);
