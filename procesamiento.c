@@ -126,10 +126,10 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 ** Funcion para que una vez obtenida la clase, nos diga cual es.
 */
 
-int queClasificacion( char * claseVuelo){         
-	if(strcmp(claseVuelo, "Cabotaje") == 0){
+int queClasificacion( char * clasifVuelo){         
+	if(strcmp(clasifVuelo, "Cabotaje") == 0){
 		return CABOT;
-	}else if(strcmp(claseVuelo, "Internacional") == 0){
+	}else if(strcmp(clasifVuelo, "Internacional") == 0){
 		return INTER;
 	}else{
 		return NA;
@@ -140,12 +140,12 @@ int queClasificacion( char * claseVuelo){
 ** Funcion que una vez obtenida la clasificacon, nos diga cual es.
 */
 
-int queClase( char * clasifVuelo){
-	if(strcmp(clasifVuelo, "Regular") == 0){
+int queClase( char * clasefVuelo){
+	if(strcmp(claseVuelo, "Regular") == 0){
 		return REG;
-	}else if(strcmp(clasifVuelo, "No Regular") == 0){
+	}else if(strcmp(claseVuelo, "No Regular") == 0){
 		return NO_REG;
-	}else if(strncmp(clasifVuelo, "Vuelo Privado", 13) == 0){
+	}else if(strncmp(claseVuelo, "Vuelo Privado", 13) == 0){
 		return PRIV;
 	}else{ 								//por si alguno no tiene nada o algo que no nos sirve:
 		return NA; //siendo NA un sinonimo de basura.
