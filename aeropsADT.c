@@ -19,7 +19,7 @@ typedef struct aeropCDT
 
 
 //La lista es un vector de aeropuertos (ordenados alfabeticamente)
-aeropADT * nuevaLista (void) 
+aeropADT * nuevoVecList (void) 
 {
 	return calloc(LETRAS,sizeof(aeropADT));
 }
