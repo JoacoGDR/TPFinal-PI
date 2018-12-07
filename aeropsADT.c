@@ -78,6 +78,11 @@ static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo)
    if(first == NULL || (c=first->cantMov - nuevo->cantMov)< 0)
    {
       aeropADT aux = malloc(sizeof(aeropCDT));
+	if (aux==NULL)
+	{
+		fprintf (stderr, "No hay memoria suficiente\n");
+		//exit o return
+	}
       strcpy(aux->oaci, nuevo->oaci);
       strcpy(aux->denom, nuevo->denom);
       aux->cantMov = nuevo->cantMov;
