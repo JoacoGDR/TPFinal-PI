@@ -92,14 +92,11 @@ void query3(tMovsADT l)
 	fprintf(destino, "Clase de vuelo;Clasificacion de vuelo;Cantidad de vuelos con esa composicion\n");
 	
 	for(j = 0; j < 3; j++)
-	{
 		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[j], l->cabotaje[j]);
-	}
 	
 	for(j = 0; j < 3; j++)
-	{
 		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[j], l->internacional[j]);
-	}
+	
 	//O BIEN PODRIAMOS HACER UNA FUNCION QUE HAGA ESO...
 	//PARA NO REPETIR EL FOR...
 	
