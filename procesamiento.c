@@ -140,7 +140,7 @@ int queClasificacion( char * clasifVuelo){
 ** Funcion que una vez obtenida la clasificacon, nos diga cual es.
 */
 
-int queClase( char * clasefVuelo){
+int queClase( char * claseVuelo){
 	if(strcmp(claseVuelo, "Regular") == 0){
 		return REG;
 	}else if(strcmp(claseVuelo, "No Regular") == 0){
