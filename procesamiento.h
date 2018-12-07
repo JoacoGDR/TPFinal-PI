@@ -67,14 +67,14 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]);
 ** un valor que representa dicha clase.
 */
 
-int queClase(char * claseVuelo);
+int queClasificacion(char * clasifVuelo);
 
 /*
 ** Una vez obtenido el campo correspondiente a la clasificacion del vuelo ('clasifVuelo'), deja en el parametro E/S
 ** 'casificacion' un valor que representa dicha clasificacion.
 */
 
-int queClasificacion(char * clasifVuelo);
+int queClase(char * claseVuelo);
 
 /*
 ** Recibe un string que contiene el nombre del archivo del cual tomara la informacion,
