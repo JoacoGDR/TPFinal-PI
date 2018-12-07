@@ -6,13 +6,16 @@
 
 
 
-int main(int argc, char *argv[]){
-	
+int main (int argc, char *argv[])
+{
 	//Se verifica que se pase la cantidad de archivos correcta
-	if(argc > 3){
+	if(argc > 3)
+	{
 		printf("Error: Demasiados argumentos\n");
 		return 1;
-	}else if(argc < 3){
+	}
+	else if(argc < 3)
+	{
 		printf("Error: Faltan argumentos\n");
 		return 2;
 	}
@@ -22,7 +25,7 @@ int main(int argc, char *argv[]){
 	
 	
 	tMovsADT movis = newMov();
-	aeropADT * aeroLista = nuevaLista();
+	aeropADT * aeroLista = nuevoVecLis();
 	
 	procesarAerops(file1, aeroLista);
 	procesarMovs(file2, aeroLista, movis);
