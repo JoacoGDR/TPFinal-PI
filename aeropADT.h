@@ -9,7 +9,7 @@ typedef struct aeropCDT * aeropADT;
 /* Crea un vector de 27 listas inicializadas en NULL
  * de aeropuertos. Hay 27 letras en el abecedario inglés
  */
-aeropADT * nuevaLista(void);
+aeropADT * nuevoVecList(void);
 
 /* Agrega un aeropuerto al vector de listas
  * respetando su orden alfabético. 
