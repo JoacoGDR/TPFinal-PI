@@ -12,7 +12,12 @@ void aumentaDia(tMovsADT movs, int clase, int dia);
 //Aumenta los movimientos de la clase en su respectiva clasificación.
 void aumentaClasifVuelo(tMovsADT movs, int clase, int clasif);
 
-void query2(tMovsADT movi);
+//imprime a cantidad de movimientos por dia de semana en el archivo de destino
+void printPorSemana (tMovsADT h, FILE * destino);
 
-void query3(tMovsADT movi);
+//imprime  la cantidad de movimientos segun la clase de vuelo
+void printPorVuelo (tMovsADT l , FILE * destino);
+
+
+
 #endif

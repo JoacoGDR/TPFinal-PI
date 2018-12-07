@@ -12,8 +12,8 @@
 
 
 typedef struct dia {
-	long int cabotaje;
-	long int internacional;  
+	long int cabot;
+	long int inter;  
 } Tdia;
 
 
@@ -66,11 +66,11 @@ void printPorVuelo (tMovsADT l , FILE * destino){
 	
 	int i;
 	for(i = 0; i < 3; i++){
-		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[i], l->cabotaje[i]);
+		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[i], l->cabot[i]);
 	}
 	
 	for(i = 0; i < 3; i++){
-		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[i], l->internacional[i]);
+		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[i], l->inter[i]);
 	}
 	
 }

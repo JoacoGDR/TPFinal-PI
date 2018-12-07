@@ -26,7 +26,11 @@ int agregarMov(aeropADT * list, char oaci[5]);
  */
 aeropADT ordenaCantMovs(aeropADT * lista);
 
-void query1(aeropADT lista);
+//imprime la lista con el formato oaci;denom;cantMov 
+void printList (aeropADT lista, FILE * destino);
+
+//libera la lista ordenada
+void freeListaOrdenada(aeropADT first)
 
 
 #endif

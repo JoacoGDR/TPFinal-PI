@@ -59,7 +59,7 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 //retorna una lista con los aeropuertos ordenados
 
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
-   int c;
+   long int c;
    if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
       aeropADT aux = malloc(sizeof(aeropCDT));
       strcpy(aux->oaci, nuevo->oaci);
@@ -108,10 +108,7 @@ void printList (aeropADT lista, FILE * destino) {
 }
 
 
-//////////////////////////////
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista
-
-
 
 //LOS FREE SUPER IMPORTANTES!!!!!!!!!!!!
