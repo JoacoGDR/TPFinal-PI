@@ -11,12 +11,12 @@ int main (int argc, char *argv[])
 	//Se verifica que se pase la cantidad de archivos correcta
 	if(argc > 3)
 	{
-		printf("Error: Demasiados argumentos\n");
+		fprintf(stderr, "Error: Demasiados argumentos\n");
 		return 1;
 	}
 	else if(argc < 3)
 	{
-		printf("Error: Faltan argumentos\n");
+		fprintf(stderr, "Error: Faltan argumentos\n");
 		return 2;
 	}
 	
