@@ -118,7 +118,7 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS])
 	fAerops = fopen(file, "r");
 		if(fAerops == NULL)
 		{
-			printf("No se pudo abrir el archivo\n");
+			fprintf(stderr, "Error: No se pudo abrir el archivo\n");
 			return 1;
 		}
 
@@ -203,7 +203,7 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos)
 	fMovs = fopen(file, "r");   
 		if(fMovs == NULL)
 		{//algo fallo a la hora de abrir el archivo
-			printf("No se pudo abrir el archivo\n");
+			fprintf(stderr , "Error: No se pudo abrir el archivo\n");
 			return 1;
 		}
 
