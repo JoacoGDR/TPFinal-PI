@@ -2,12 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "aeropADT.h"
-#include "procesamiento.h"
-#include "movsADT.h"
 
-#define REG 0
-#define NO_REG 1
-#define PRIV 2
 
 typedef struct aeropCDT {
    char oaci[5];
@@ -63,10 +58,6 @@ int agregarMov(aeropADT list[LETRAS], char oaci[5]){
 // y alfabeticamente (en caso de ser iguales)
 //retorna una lista con los aeropuertos ordenados
 
-//funcion que ordena por cantidad de movimientos de cada aeropuerto.
-// y alfabeticamente (en caso de ser iguales)
-//retorna una lista con los aeropuertos ordenados
-
 static aeropADT addOrdenadoRec(aeropADT first, aeropADT nuevo){
    int c;
    if(first == NULL || (c=(first->cantMov - nuevo->cantMov))< 0){
@@ -86,22 +77,21 @@ aeropADT ordenaCantMovs(aeropADT lista[LETRAS]){
    int i = 0;
    aeropADT resp = NULL;
    aeropADT aux;
-   while(i < LETRAS){
-      for(;i < LETRAS && lista[i] == NULL ; i++)
-      free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.                                     
-      if(i < LETRAS){
-         aux = lista[i];
-         lista[i] = lista[i]->next;
-         resp = addOrdenadoRec(resp, aux);
-         free(aux);  //libero el que saque de mi vector
-      }
-              
+   while(i < LETRAS) {
+      for( ; i < LETRAS && lista[i] == NULL ; i++)
+         free(lista[i]);// Si es NULL entonces libero(porque habia hecho calloc) y me muevo al siguiente.
+      aux = lista[i];
+      lista[i] = lista[i]->next;
+      resp = addOrdenadoRec(resp, aux);
+      free(aux);  //libero el que saque de mi vector
+               
    }
 
    free(lista);  //ya libere cada coso del vector [][][][] ahora libero el vector en si
-
    return resp;
 }
+
+
 void freeListaOrdenada(aeropADT first){
    if(first == NULL)
       return;
@@ -109,22 +99,15 @@ void freeListaOrdenada(aeropADT first){
    free(first);
 }
 
-void query1(aeropADT lista){   // Recibe la lista ordenada por movimientos
-   
-   FILE * destino;
-   destino = fopen("a.csv", "wt");   // Va a crear este archivo y va a poner todo ahi
-
+void printList (aeropADT lista, FILE * destino) {
    aeropADT aux = lista;
-   
-   fprintf(destino, "OACI;Denominacion;Cantidad de Movimientos\n");
-
    while(aux != NULL){
       fprintf(destino, "%s;%s;%ld \n", aux->oaci, aux->denom, aux->cantMov);
       aux = aux->next;
    }
-
-   fclose(destino);
 }
+
+
 //////////////////////////////
 
 //podria tener una funcion que busque si el OACI pertenece a mi lista

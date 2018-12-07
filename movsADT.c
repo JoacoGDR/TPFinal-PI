@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "movsADT.h"
-#include "aeropADT.h"
-#include "procesamiento.h"
 
 #define REG 0
 #define NO_REG 1
@@ -23,20 +21,20 @@ typedef struct dia {
 typedef struct tMovsCDT {
    //los dias iran de domingo=0 a sabado=6
    Tdia semana [9];                                      //MOVIMIENTOS
-   long int cabotaje [3];         //{REG, NO_REG, PRIV}  //MOVIMIENTOS
-   long int internacional [3];    //{REG, NO_REG, PRIV}  //MOVIMIENTOS
+   long int cabot [3];         //{REG, NO_REG, PRIV}  //MOVIMIENTOS
+   long int inter [3];    //{REG, NO_REG, PRIV}  //MOVIMIENTOS
 } tMovsCDT; 
 
-tMovsCDT * newMov(){
+tMovsADT newMov(){
 	return calloc(1,sizeof(tMovsCDT));
 }
 
 //funcion para sumar a cierto dia si es cabot o internacional
 void aumentaDia(tMovsADT movs, int clasif, int dia){
 	if(clasif == CABOT){
-		movs->semana[dia].cabotaje++;
+		movs->semana[dia].cabot++;
 	}else if(clasif == INTER){
-		movs->semana[dia].internacional++;
+		movs->semana[dia].inter++;
 	}
 }
 
@@ -45,50 +43,37 @@ void aumentaClasifVuelo(tMovsADT movs, int clase, int clasif){
 	if(clase == NA)
 		return;
 	if(clasif == CABOT){
-		movs->cabotaje[clase]++;
+		movs->cabot[clase]++;
 	}else if(clasif == INTER){
-		movs->internacional[clase]++;
+		movs->inter[clase]++;
 	}
 }
 
-void query2(tMovsADT header){
-	FILE * destino;
-	destino = fopen("dia_semana.csv","wt");
+void printPorSemana (tMovsADT h, FILE * destino){
 	int i;
 	char * dias[7] = {"Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
-	
-	fprintf(destino, "Dia;Cantidad de vuelos de cabotaje;Cantidad de vuelos Internacionales;Cantidad total\n");
-	
-	for(i = 1; i < 7; i++){
-		fprintf(destino, "%s;%ld;%ld;%ld\n", dias[i], header->semana[i].cabotaje, header->semana[i].internacional, header->semana[i].cabotaje + header->semana[i].internacional);
-	}
-	fprintf(destino, "%s;%ld;%ld;%ld\n", dias[0], header->semana[0].cabotaje, header->semana[0].internacional, header->semana[0].cabotaje + header->semana[0].internacional);
-	fclose(destino);
 
+	for(i = 1; i < 7; i++){
+		fprintf(destino, "%s;%ld;%ld;%ld\n", dias[i], h->semana[i].cabot, h->semana[i].inter, h->semana[i].cabot + h->semana[i].inter);
+	}
+	fprintf(destino, "%s;%ld;%ld;%ld\n", dias[0], h->semana[0].cabot, h->semana[0].inter, h->semana[0].cabot + h->semana[0].inter);
 }
 
-void query3(tMovsADT l){
-	FILE * destino;
-	destino = fopen("composicion.csv","wt");
-	
-	
+
+
+void printPorVuelo (tMovsADT l , FILE * destino){
 	char * clasifsV[3] = {"Regular", "No Regular", "Vuelo Privado"}; //clasificacion de los vuelos
 	
-	int j;
-	
-	fprintf(destino, "Clase de vuelo;Clasificacion de vuelo;Cantidad de vuelos con esa composicion\n");
-	
-	for(j = 0; j < 3; j++){
-		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[j], l->cabotaje[j]);
+	int i;
+	for(i = 0; i < 3; i++){
+		fprintf(destino, "Cabotaje;%s;%ld\n", clasifsV[i], l->cabotaje[i]);
 	}
 	
-	for(j = 0; j < 3; j++){
-		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[j], l->internacional[j]);
+	for(i = 0; i < 3; i++){
+		fprintf(destino, "Internacional;%s;%ld\n", clasifsV[i], l->internacional[i]);
 	}
-	//O BIEN PODRIAMOS HACER UNA FUNCION QUE HAGA ESO...
-	//PARA NO REPETIR EL FOR...
 	
-    fclose(destino);
-
 }
+
+
 
