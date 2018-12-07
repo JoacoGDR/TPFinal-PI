@@ -126,7 +126,7 @@ int procesarAerops(char * file, aeropADT aerops[LETRAS]){ //inicialmente estara 
 ** Funcion para que una vez obtenida la clase, nos diga cual es.
 */
 
-int queClase( char * claseVuelo){         
+int queClasificacion( char * claseVuelo){         
 	if(strcmp(claseVuelo, "Cabotaje") == 0){
 		return CABOT;
 	}else if(strcmp(claseVuelo, "Internacional") == 0){
@@ -140,7 +140,7 @@ int queClase( char * claseVuelo){
 ** Funcion que una vez obtenida la clasificacon, nos diga cual es.
 */
 
-int queClasificacion( char * clasifVuelo){
+int queClase( char * clasifVuelo){
 	if(strcmp(clasifVuelo, "Regular") == 0){
 		return REG;
 	}else if(strcmp(clasifVuelo, "No Regular") == 0){
@@ -202,8 +202,8 @@ int procesarMovs(char * file, aeropADT aerops[LETRAS], tMovsADT movimientos){
 	}
 		dia = queDiaEs(fecha);  //supuestamente va del 0 al 6...
 
-		clasificacion = queClase(clasifVuelo);     //los switchee            
-		clase = queClasificacion(claseVuelo);	   //CAMBIAR NOMBRES URGENTE!
+		clasificacion = queClasificacion(clasifVuelo);     //los switchee            
+		clase = queClase(claseVuelo);	   //CAMBIAR NOMBRES URGENTE!
 		
 		aumentaClasifVuelo(movimientos, clase, clasificacion); 
 		aumentaDia(movimientos, clasificacion, dia);  //estas dos son fcs de movsADT
